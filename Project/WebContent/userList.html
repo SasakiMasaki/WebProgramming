@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ユーザ一覧</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/origin/common.css">
+</head>
+<body>
+	<div class="container">
+		<form action="">
+			<header>
+				<div>ユーザ名さん&emsp;<a href="">ログアウト</a></div>
+			</header>
+			<div class="title">
+				<p class="text-center"><a class="b">ユーザ一覧</a></p>
+			</div>
+			<p class="text-right">
+				<a href="">新規登録</a>
+			</p>
+			<table>
+				<tr>
+					<th class="a">ログインID</th>
+					<th><input type="text" name="ID"></th>
+					<th class="a"></th>
+				</tr>
+				<tr>
+					<th>ユーザ名</th>
+					<th><input type="text" name="name"></th>
+					<th></th>
+				</tr>
+				<tr>
+					<th>生年月日</th>
+					<th class="just"><input type="date" name="birthday">～<input type="date" name="birthday"></th>
+					<th></th>
+				</tr>
+			</table>
+			<div class="float-right">
+				<input type="submit" name="search" value="検索"><br>
+			</div>
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>ログインID</th>
+						<th>ユーザ名</th>
+						<th>生年月日</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tr>
+					<th>id0001</th>
+					<th>田中太郎</th>
+					<th>1989年04月26日</th>
+					<th>
+						<input type="submit" class="btn btn-primary btn-sm" name="detail" value="詳細">
+						<input type="submit" class="btn btn-success btn-sm" name="update" value="更新">
+						<input type="submit" class="btn btn-danger btn-sm" name="delete" value="削除">
+					</th>
+				</tr>
+				<tr>
+					<th>id0001</th>
+					<th>田中太郎</th>
+					<th>1989年04月26日</th>
+					<th>
+						<input type="submit" class="btn btn-primary btn-sm" name="detail" value="詳細">
+						<input type="submit" class="btn btn-success btn-sm" name="update" value="更新">
+						<input type="submit" class="btn btn-danger btn-sm" name="delete" value="削除">
+					</th>
+				</tr>
+				<tr>
+					<th>id0001</th>
+					<th>田中太郎</th>
+					<th>1989年04月26日</th>
+					<th>
+						<input type="submit" class="btn btn-primary btn-sm" name="detail" value="詳細">
+						<input type="submit" class="btn btn-success btn-sm" name="update" value="更新">
+						<input type="submit" class="btn btn-danger btn-sm" name="delete" value="削除">
+					</th>
+				</tr>
+			</table>
+		</form>
+
+
+	</div>
+</body>
+</html>

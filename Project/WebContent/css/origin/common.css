@@ -1,3 +1,28 @@
-.xxx {
-	background-color: red;
+table{
+	width:100%;
+}
+input[type="text"]{
+	display: block;
+	width:100%;
+}
+header{
+	color: #fff !important;
+	background-color: #343a40 !important;
+	padding: 1rem !important;
+	margin-bottom: 0.5rem !important;
+	text-align: right !important;
+}
+.container{
+	max-width:800px;
+}
+.a{
+	width:30%;
+}
+.just{
+	text-align: justify;
+	text-justify: inter-ideograph;
+}
+.title{
+	font-size: 250%;
+	font-weight: bold;
 }
