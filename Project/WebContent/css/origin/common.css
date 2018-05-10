@@ -1,28 +1,39 @@
+input[type=text],input[type=password],input[type=date]{
+	width:100%;
+}
 table{
 	width:100%;
 }
-input[type="text"]{
-	display: block;
-	width:100%;
+table.a tr{
+	height:3rem;
+}
+table.a th{
+	width:30%;
+}
+table.b{
+	table-layout:fixed;
+}
+table.b input{
+	width:80%;
+}
+table.b tr{
+	height:3.5rem;
 }
 header{
 	color: #fff !important;
 	background-color: #343a40 !important;
-	padding: 1rem !important;
+	padding: 0.5rem !important;
 	margin-bottom: 0.5rem !important;
 	text-align: right !important;
+}
+.submit{
+	width:8rem;
 }
 .container{
 	max-width:800px;
 }
-.a{
-	width:30%;
-}
-.just{
-	text-align: justify;
-	text-justify: inter-ideograph;
-}
 .title{
 	font-size: 250%;
 	font-weight: bold;
+	padding:1rem;
 }

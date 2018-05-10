@@ -3,20 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザ新規登録</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/origin/common.css">
 </head>
 <body>
-<form action="">
-<header>
-ユーザ名さん&emsp;<a href = "">ログアウト</a>
-</header>
-<p>ユーザ新規登録</p>
-ログインID&emsp;<input type = "text" name = "ID"><br>
-ユーザ名&emsp;&emsp;<input type = "password" name = "pass"><br>
-生年月日&emsp;&emsp;<input type = "password" name = "rePass"><br>
-登録日時&emsp;&emsp;<input type = "text" name = "name"><br>
-更新日時&emsp;&emsp;<input type = "date" name = "birthday"><br>
-<input type = "submit" name = "regist" value = "登録"><br>
-<p><a href = "">戻る</a></p>
-</form>
+	<div class="container">
+		<form action="http://localhost:8080/UserManagement/userList.html">
+			<header>
+			ユーザ名さん&emsp;<a href = "http://localhost:8080/UserManagement/login.html">ログアウト</a>
+			</header>
+			<div class="title">
+				<p class="text-center"><a>ユーザ新規登録</a></p>
+			</div>
+			<table class="b">
+				<tr>
+					<th><a>ログインID</a></th>
+					<td><input type = "text" name = "ID"></td>
+				<tr>
+					<th><a>パスワード</a></th>
+					<td><input type = "password" name = "pass"></td>
+				</tr>
+				<tr>
+					<th><a>パスワード(確認)</a></th>
+					<td><input type = "password" name = "rePass"></td>
+				<tr>
+					<th><a>ユーザ名</a></th>
+					<td><input type = "text" name = "ID"></td>
+				<tr>
+					<th><a>生年月日</a></th>
+					<td><input type = "date" name = "birthday"></td>
+			</table>
+			<div class="text-center">
+				<br>
+				<br>
+				<input class="submit" type="submit" name="regist" value="登録"><br>
+				<br>
+			</div>
+			<p class="text-left"><a href = "http://localhost:8080/UserManagement/userList.html">戻る</a></p>
+		</form>
+	</div>
 </body>
 </html>

@@ -3,19 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <title>ユーザ情報詳細参照</title>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/origin/common.css">
 </head>
 <body>
-<form action="">
-<header>
-ユーザ名さん&emsp;<a href = "">ログアウト</a>
-</header>
-<p>ユーザ情報詳細参照</p>
-ログインID&emsp;id0001<br>
-ユーザ名&emsp;&emsp;田中太郎<br>
-生年月日&emsp;&emsp;1989年04月26日<br>
-登録日時&emsp;&emsp;2017年01月01日&nbsp;10:50<br>
-更新日時&emsp;&emsp;2017年02月01日&nbsp;01:05<br>
-<p><a href = "">戻る</a></p>
-</form>
+	<div class="container">
+		<form action="">
+			<header>
+			ユーザ名さん&emsp;<a href = "http://localhost:8080/UserManagement/login.html">ログアウト</a>
+			</header>
+			<div class="title">
+				<p class="text-center"><a>ユーザ情報詳細参照</a></p>
+			</div>
+			<table class="b">
+				<tr>
+					<th><a>ログインID</a></th>
+					<td><a>id0001</a></td>
+				<tr>
+					<th><a>ユーザ名</a></th>
+					<td><a>田中太郎</a></td>
+				</tr>
+				<tr>
+					<th><a>生年月日</a></th>
+					<td><a>1989年04月26日</a></td>
+				<tr>
+					<th><a>登録日時</a></th>
+					<td><a>2017年01月01日 10:50</a></td>
+				<tr>
+					<th><a>更新日時</a></th>
+					<td><a>2017年02月01日 01:05</a></td>
+			</table>
+			<br>
+			<br>
+			<p><a href = "http://localhost:8080/UserManagement/userList.html">戻る</a></p>
+		</form>
+	</div>
 </body>
 </html>
