@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-		<form action="http://localhost:8080/UserManagement/userList.html">
+		<form action="LoginServlet" method="post" >
 			<div class="title">
 				<p class="text-center"><a>ログイン画面</a></p>
 				<br>
@@ -16,7 +18,7 @@
 			<table class="b">
 				<tr>
 					<th>ログインID</th>
-					<td><input type = "text" name = "name"></td>
+					<td><input type = "text" name = "loginId"></td>
 				</tr>
 				<tr>
 					<th>パスワード</th>
@@ -26,7 +28,7 @@
 			<div class="text-center">
 				<br>
 				<br>
-				<input class="submit" type="submit" name="regist" value="ログイン"><br>
+				<input class="submit" type="submit" value="ログイン"><br>
 				<br>
 			</div>
 		</form>
