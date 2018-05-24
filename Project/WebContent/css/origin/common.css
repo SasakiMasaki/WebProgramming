@@ -26,6 +26,9 @@ header{
 	margin-bottom: 0.5rem !important;
 	text-align: right !important;
 }
+.alert{
+	color:red;
+}
 .submit{
 	width:8rem;
 }

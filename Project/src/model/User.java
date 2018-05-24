@@ -11,9 +11,15 @@ public class User {
 	private String createDate;
 	private String updateDate;
 
-	public User(String loginId,String password) {
+	public User(String loginId,String name) {
 		this.loginId = loginId;
-		this.password = password;
+		this.name = name;
+	}
+
+	public User(String loginId,String name,Date birthDate) {
+		this.loginId = loginId;
+		this.name = name;
+		this.birthDate = birthDate;
 	}
 
 	public User(int id,String loginId,String name,Date birthDate,String password,String createDate,String updateDate) {

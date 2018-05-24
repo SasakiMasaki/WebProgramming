@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -10,9 +11,9 @@
 </head>
 <body>
 	<div class="container">
-		<form action="http://localhost:8080/UserManagement/userList.html">
+		<form action="UserListServlet" method="post">
 			<header>
-				<div>ユーザ名さん&emsp;<a href="http://localhost:8080/UserManagement/login.html">ログアウト</a></div>
+				<div>${loginUser.name}さん&emsp;<a href="http://localhost:8080/UserManagement/login.html">ログアウト</a></div>
 			</header>
 			<div class="title">
 				<p class="text-center"><a>ユーザ一覧</a></p>
@@ -23,7 +24,7 @@
 			<table class="a">
 				<tr>
 					<th>ログインID</th>
-					<td colspan = "3"><input type="text" name="ID"></td>
+					<td colspan = "3"><input type="text" name="id"></td>
 					<th></th>
 				</tr>
 				<tr>
@@ -33,9 +34,9 @@
 				</tr>
 				<tr>
 					<th>生年月日</th>
-					<td><input type="date" name="birthday"></td>
+					<td><input type="date" name="firstDate"></td>
 					<td>～</td>
-					<td><input type="date" name="birthday"></td>
+					<td><input type="date" name="lastDate"></td>
 					<th></th>
 				</tr>
 			</table>
@@ -51,36 +52,18 @@
 						<th></th>
 					</tr>
 				</thead>
-				<tr>
-					<td>id0001</td>
-					<td>田中太郎</td>
-					<td>1989年04月26日</td>
-					<td>
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/userDetail.html'" class="btn btn-primary btn-sm" name="detail" value="詳細">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/updateUser.html'" class="btn btn-success btn-sm" name="update" value="更新">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/deleteUser.html'" class="btn btn-danger btn-sm" name="delete" value="削除">
-					</td>
-				</tr>
-				<tr>
-					<td>id0001</td>
-					<td>田中太郎</td>
-					<td>1989年04月26日</td>
-					<td>
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/userDetail.html'" class="btn btn-primary btn-sm" name="detail" value="詳細">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/updateUser.html'" class="btn btn-success btn-sm" name="update" value="更新">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/deleteUser.html'" class="btn btn-danger btn-sm" name="delete" value="削除">
-					</td>
-				</tr>
-				<tr>
-					<td>id0001</td>
-					<td>田中太郎</td>
-					<td>1989年04月26日</td>
-					<td>
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/userDetail.html'" class="btn btn-primary btn-sm" name="detail" value="詳細">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/updateUser.html'" class="btn btn-success btn-sm" name="update" value="更新">
-						<input type="button" onclick="location.href='http://localhost:8080/UserManagement/deleteUser.html'" class="btn btn-danger btn-sm" name="delete" value="削除">
-					</td>
-				</tr>
+				<c:forEach var="user" items="${userList}">
+					<tr>
+						<td>${user.loginId}</td>
+						<td>${user.name}</td>
+						<td>${user.birthDate}</td>
+						<td>
+							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-primary btn-sm" name="detail" value="${user.loginId}">詳細</button>
+							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-success btn-sm" name="update" value="${user.loginId}">更新</button>
+							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-danger btn-sm" name="delete" value="${user.loginId}">削除</button>
+						</td>
+					</tr>
+				</c:forEach>
 			</table>
 		</form>
 	</div>

@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
 import model.User;
@@ -32,6 +33,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		if((User)session.getAttribute("user") != null) {
+			response.sendRedirect("UserListServlet");
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -46,8 +52,12 @@ public class LoginServlet extends HttpServlet {
 
 		UserDao userDao = new UserDao();
 		User user = userDao.findByLoginInfo(loginId, password);
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", user);
 
 		if(user == null) {
+			request.setAttribute("errMsg", "ログインIDまたはパスワードが異なります");
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}

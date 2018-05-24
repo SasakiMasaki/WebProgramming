@@ -90,4 +90,86 @@ public class UserDao {
 		}
 		return userList;
 	}
+
+
+
+	public User findUserByLoginId(String LoginId){
+		Connection con = null;
+
+		try {
+			con = DBManager.getConnection();
+
+			String sql = "SELECT * FROM user WHERE login_id = ?";
+
+			PreparedStatement pStmt = con.prepareStatement(sql);
+			pStmt.setString(1, LoginId);
+			ResultSet rs = pStmt.executeQuery();
+
+			if (!rs.next()) {
+				return null;
+			}
+
+			int id = rs.getInt("id");
+			String loginId = rs.getString("login_id");
+			String name = rs.getString("name");
+			Date birthDate = rs.getDate("birth_date");
+			String password = rs.getString("password");
+			String createDate = rs.getString("create_date");
+			String updateDate = rs.getString("update_date");
+
+			return new User(id,loginId,name,birthDate,password,createDate,updateDate);
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+	}
+
+
+
+	public List<User> findListByName(String Name){
+		Connection con = null;
+		List<User> userList = new ArrayList<User>();
+
+		try {
+			con = DBManager.getConnection();
+
+			String sql = "SELECT * FROM user WHERE login_id = ?";
+
+			PreparedStatement pStmt = con.prepareStatement(sql);
+			pStmt.setString(1, Name);
+			ResultSet rs = pStmt.executeQuery();
+
+			while(rs.next()) {
+				String loginId = rs.getString("login_id");
+				String name = rs.getString("name");
+				Date birthDate = rs.getDate("birth_date");
+
+				User user = new User(loginId,name,birthDate);
+				userList.add(user);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return userList;
+	}
 }
