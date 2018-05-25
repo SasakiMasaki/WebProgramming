@@ -13,13 +13,13 @@
 	<div class="container">
 		<form action="UserListServlet" method="post">
 			<header>
-				<div>${loginUser.name}さん&emsp;<a href="http://localhost:8080/UserManagement/login.html">ログアウト</a></div>
+				<div>${loginUser.name}さん&emsp;<a href="LogoutServlet">ログアウト</a></div>
 			</header>
 			<div class="title">
 				<p class="text-center"><a>ユーザ一覧</a></p>
 			</div>
 			<p class="text-right">
-				<a href="http://localhost:8080/UserManagement/addUser.html">新規登録</a>
+				<a href="AddUserServlet">新規登録</a>
 			</p>
 			<table class="a">
 				<tr>

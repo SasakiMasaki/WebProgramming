@@ -93,8 +93,9 @@ public class UserDao {
 
 
 
-	public User findUserByLoginId(String LoginId){
+	public List<User> findListByLoginId(String LoginId){
 		Connection con = null;
+		List<User> userList = new ArrayList<User>();
 
 		try {
 			con = DBManager.getConnection();
@@ -117,7 +118,8 @@ public class UserDao {
 			String createDate = rs.getString("create_date");
 			String updateDate = rs.getString("update_date");
 
-			return new User(id,loginId,name,birthDate,password,createDate,updateDate);
+			User user = new User(id,loginId,name,birthDate,password,createDate,updateDate);
+			userList.add(user);
 
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -132,6 +134,7 @@ public class UserDao {
 				}
 			}
 		}
+		return userList;
 	}
 
 
@@ -143,10 +146,65 @@ public class UserDao {
 		try {
 			con = DBManager.getConnection();
 
-			String sql = "SELECT * FROM user WHERE login_id = ?";
+			String sql = "SELECT * FROM user WHERE name like ?";
 
 			PreparedStatement pStmt = con.prepareStatement(sql);
-			pStmt.setString(1, Name);
+			pStmt.setString(1, "%" + Name + "%");
+			ResultSet rs = pStmt.executeQuery();
+
+			while(rs.next()) {
+				String loginId = rs.getString("login_id");
+				String name = rs.getString("name");
+				Date birthDate = rs.getDate("birth_date");
+
+				User user = new User(loginId,name,birthDate);
+				userList.add(user);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			if(con != null) {
+				try {
+					con.close();
+				}catch(SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		}
+		return userList;
+	}
+
+	public List<User> findListByDate(String firstDate, String lastDate){
+		Connection con = null;
+		List<User> userList = new ArrayList<User>();
+
+		try {
+			con = DBManager.getConnection();
+
+			String sql;
+			PreparedStatement pStmt;
+
+			if(!firstDate.equals("")) {
+				sql = "select * from user where birth_date >= ?";
+				pStmt = con.prepareStatement(sql);
+				pStmt.setString(1, firstDate);
+				if(!lastDate.equals("")) {
+					sql = "select * from user where birth_date >= ? and birth_date <= ?";
+					pStmt = con.prepareStatement(sql);
+					pStmt.setString(1, firstDate);
+					pStmt.setString(2, lastDate);
+				}
+			}else {
+				sql = "select * from user where birth_date <= ?";
+				pStmt = con.prepareStatement(sql);
+				pStmt.setString(1, lastDate);
+				if(lastDate.equals("")) {
+					return null;
+				}
+			}
+
 			ResultSet rs = pStmt.executeQuery();
 
 			while(rs.next()) {

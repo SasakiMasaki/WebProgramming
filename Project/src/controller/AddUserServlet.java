@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -11,20 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class AddUserServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/AddUserServlet")
+public class AddUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public AddUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,12 +31,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		if((User)session.getAttribute("loginUser") != null) {
-			response.sendRedirect("UserListServlet");
+		HttpSession session =  request.getSession();
+		User user = (User)session.getAttribute("loginUser");
+
+		if(user == null) {
+			response.sendRedirect("LoginServlet");
 			return;
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -46,22 +47,8 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
-
-		UserDao userDao = new UserDao();
-		User user = userDao.findByLoginInfo(loginId, password);
-		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", user);
-
-		if(user == null) {
-			request.setAttribute("errMsg", "ログインIDまたはパスワードが異なります");
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			dispatcher.forward(request, response);
-		}
-		response.sendRedirect("UserListServlet");
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }
