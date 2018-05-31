@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,30 +11,36 @@
 </head>
 <body>
 	<div class="container">
-		<form action="">
+		<form action="UpdateUserServlet" method="post">
 			<header>
-			ユーザ名さん&emsp;<a href = "http://localhost:8080/UserManagement/login.html">ログアウト</a>
+				<div>${loginUser.name}さん&emsp;<a href="LogoutServlet">ログアウト</a></div>
 			</header>
 			<div class="title">
 				<p class="text-center"><a>ユーザ情報更新</a></p>
 			</div>
+			<c:if test="${errMsg != null}">
+				<div class="alert">
+					${errMsg}
+				</div>
+			</c:if>
+
 			<table class="b">
 				<tr>
 					<th><a>ログインID</a></th>
-					<td><a>id0001</a></td>
+					<td><a name="loginId">${user.loginId}</a></td>
 				<tr>
 					<th><a>パスワード</a></th>
-					<td><input type = "password" name = "pass"></td>
+					<td><input type = "password" name = "password"></td>
 				</tr>
 				<tr>
 					<th><a>パスワード(確認)</a></th>
-					<td><input type = "password" name = "rePass"></td>
+					<td><input type = "password" name = "rePassword"></td>
 				<tr>
 					<th><a>ユーザ名</a></th>
-					<td><input type = "text" name = "ID" value="田中太郎"></td>
+					<td><input type = "text" name = "name" value="${user.name}"></td>
 				<tr>
 					<th><a>生年月日</a></th>
-					<td><input type = "date" name = "birthday" value=1989-04-26></td>
+					<td><input type = "date" name = "birthDate" value="${user.birthDate}"></td>
 			</table>
 			<div class="text-center">
 				<br>
@@ -39,7 +48,7 @@
 				<input class="submit" type="submit" name="update" value="更新"><br>
 				<br>
 			</div>
-			<p class="text-left"><a href = "http://localhost:8080/UserManagement/userList.html">戻る</a></p>
+			<p class="text-left"><a href = "UserListServlet">戻る</a></p>
 		</form>
 	</div>
 </body>

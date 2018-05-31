@@ -11,24 +11,30 @@
 </head>
 <body>
 	<div class="container">
-		<form action="AddUserServlet">
+		<form action="AddUserServlet" method="post">
 			<header>
 			<div>${loginUser.name}さん&emsp;<a href="LogoutServlet">ログアウト</a></div>
 			</header>
 			<div class="title">
 				<p class="text-center"><a>ユーザ新規登録</a></p>
 			</div>
+			<c:if test="${errMsg != null}">
+				<div class="alert">
+					${errMsg}
+				</div>
+			</c:if>
+
 			<table class="b">
 				<tr>
 					<th><a>ログインID</a></th>
-					<td><input type = "text" name = "id"></td>
+					<td><input type = "text" name = "loginId"></td>
 				<tr>
 					<th><a>パスワード</a></th>
-					<td><input type = "password" name = "pass"></td>
+					<td><input type = "password" name = "password"></td>
 				</tr>
 				<tr>
 					<th><a>パスワード(確認)</a></th>
-					<td><input type = "password" name = "rePass"></td>
+					<td><input type = "password" name = "rePassword"></td>
 				<tr>
 					<th><a>ユーザ名</a></th>
 					<td><input type = "text" name = "name"></td>

@@ -14,16 +14,16 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class AddUserServlet
+ * Servlet implementation class UpdateUserServlet
  */
-@WebServlet("/AddUserServlet")
-public class AddUserServlet extends HttpServlet {
+@WebServlet("/UpdateUserServlet")
+public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddUserServlet() {
+    public UpdateUserServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,20 @@ public class AddUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session =  request.getSession();
-		User user = (User)session.getAttribute("loginUser");
+		User loginUser = (User)session.getAttribute("loginUser");
+		User user = null;
+		UserDao userDao = new UserDao();
 
-		if(user == null) {
+		if(loginUser == null) {
 			response.sendRedirect("LoginServlet");
 			return;
 		}
+		user = userDao.findListByLoginId(request.getParameter("loginId"));
+		request.setAttribute("user", user);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateUser.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -49,26 +54,27 @@ public class AddUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String loginId = request.getParameter("loginId");
 		String name = request.getParameter("name");
 		String birthDate = request.getParameter("birthDate");
 		String password = request.getParameter("password");
 		String rePassword = request.getParameter("rePassword");
-		UserDao userDao = new UserDao();
 		int result = -1;
 
-		if(loginId.length() != 0 && name.length() != 0 && birthDate.length() != 0 && password.length() != 0 && password.equals(rePassword)) {
-			result = userDao.addUser(loginId, name, birthDate, password);
+		if(name.length() != 0 && birthDate.length() != 0) {
+			if(password.equals(rePassword) && password.length() != 0) {
+				//パスワード以外の更新メソッド
+			}else {
+				result = -1;
+			}
 		}
 
-		if(result >= 0) {
-			response.sendRedirect("UserListServlet");
-			return ;
-		}
+		if(result < 0) {
+			request.setAttribute("user", request.getAttribute("user"));
+			request.setAttribute("errMsg", "入力された内容が正しくありません");
 
-		request.setAttribute("errMsg", "入力された内容が正しくありません");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/addUser.jsp");
-		dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateUser.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

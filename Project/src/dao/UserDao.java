@@ -13,8 +13,17 @@ import model.User;
 
 public class UserDao {
 
-	public User findByLoginInfo(String loginId, String password){
+	public User findByLoginInfo(String loginId, String prePassword){
 		Connection con = null;
+//		Charset charset = StandardCharsets.UTF_8;
+//		String algorithm = "MD5";
+//		String password = null;
+//		try {
+//			byte[] bytes = MessageDigest.getInstance(algorithm).digest(prePassword.getBytes(charset));
+//			password = DatatypeConverter.printHexBinary(bytes);
+//		} catch (NoSuchAlgorithmException e1) {
+//			e1.printStackTrace();
+//		}
 
 		try {
 			con = DBManager.getConnection();
@@ -23,7 +32,7 @@ public class UserDao {
 
 			PreparedStatement pStmt = con.prepareStatement(sql);
 			pStmt.setString(1, loginId);
-			pStmt.setString(2, password);
+			pStmt.setString(2, prePassword);
 			ResultSet rs = pStmt.executeQuery();
 
 			if (!rs.next()) {
@@ -92,10 +101,9 @@ public class UserDao {
 	}
 
 
-
-	public List<User> findListByLoginId(String LoginId){
+	public User findListByLoginId(String LoginId){
 		Connection con = null;
-		List<User> userList = new ArrayList<User>();
+		User user = null;
 
 		try {
 			con = DBManager.getConnection();
@@ -118,8 +126,7 @@ public class UserDao {
 			String createDate = rs.getString("create_date");
 			String updateDate = rs.getString("update_date");
 
-			User user = new User(id,loginId,name,birthDate,password,createDate,updateDate);
-			userList.add(user);
+			user = new User(id,loginId,name,birthDate,password,createDate,updateDate);
 
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -134,7 +141,7 @@ public class UserDao {
 				}
 			}
 		}
-		return userList;
+		return user;
 	}
 
 
@@ -229,5 +236,48 @@ public class UserDao {
 			}
 		}
 		return userList;
+	}
+
+	public int addUser(String loginId, String name, String birthDate, String prePassword){
+		Connection con = null;
+
+		try {
+			con = DBManager.getConnection();
+//			Charset charset = StandardCharsets.UTF_8;
+//			String algorithm = "MD5";
+//			String password = null;
+//			try {
+//				byte[] bytes = MessageDigest.getInstance(algorithm).digest(prePassword.getBytes(charset));
+//				password = DatatypeConverter.printHexBinary(bytes);
+//			} catch (NoSuchAlgorithmException e1) {
+//				e1.printStackTrace();
+//			}
+
+
+			String sql = "insert into user(login_id,name,birth_date,password,create_date,update_date) values(?,?,?,?,now(),now())";
+
+			PreparedStatement pStmt = con.prepareStatement(sql);
+			pStmt.setString(1, loginId);
+			pStmt.setString(2, name);
+			pStmt.setString(3, birthDate);
+			pStmt.setString(4, prePassword);
+			int result = pStmt.executeUpdate();
+
+
+			return result;
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}finally {
+			if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    return -1;
+                }
+			}
+		}
 	}
 }

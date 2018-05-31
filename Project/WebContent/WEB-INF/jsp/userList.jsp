@@ -58,9 +58,23 @@
 						<td>${user.name}</td>
 						<td>${user.birthDate}</td>
 						<td>
-							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-primary btn-sm" name="detail" value="${user.loginId}">詳細</button>
-							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-success btn-sm" name="update" value="${user.loginId}">更新</button>
-							<button type="button" onclick="location.href='UserListServlet'" class="btn btn-danger btn-sm" name="delete" value="${user.loginId}">削除</button>
+							<button type="button" onclick="location.href='UserListServlet?loginId=${user.loginId}'" class="btn btn-primary btn-sm">詳細</button>
+							<c:choose>
+								<c:when test="${loginUser.loginId == user.loginId || loginUser.loginId == 'admin'}">
+									<button type="button"  onclick="location.href='UpdateUserServlet?loginId=${user.loginId}'" class="btn btn-success btn-sm">更新</button>
+								</c:when>
+								<c:otherwise>
+									<button disabled type="button" class="btn btn-success btn-sm">更新</button>
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${loginUser.loginId == user.loginId || loginUser.loginId == 'admin'}">
+									<button type="button" onclick="location.href='UserListServlet?loginId=${user.loginId}'" class="btn btn-danger btn-sm">削除</button>
+								</c:when>
+								<c:otherwise>
+									<button disabled type="button" onclick="location.href='UserListServlet?loginId=${user.loginId}'" class="btn btn-danger btn-sm">削除</button>
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</tr>
 				</c:forEach>

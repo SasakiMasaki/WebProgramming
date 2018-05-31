@@ -64,7 +64,7 @@ public class UserListServlet extends HttpServlet {
 		UserDao userDao = new UserDao();
 
 		if(!id.equals("")) {
-			userList = userDao.findListByLoginId(id);
+			userList.add(userDao.findListByLoginId(id));
 		}else if(!name.equals("")) {
 			userList = userDao.findListByName(name);
 		}else{
