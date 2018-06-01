@@ -43,7 +43,9 @@ public class UpdateUserServlet extends HttpServlet {
 			return;
 		}
 		user = userDao.findListByLoginId(request.getParameter("loginId"));
-		request.setAttribute("user", user);
+		request.setAttribute("loginId", user.getLoginId());
+		request.setAttribute("name", user.getName());
+		request.setAttribute("birthDate", user.getBirthDate());
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateUser.jsp");
 		dispatcher.forward(request, response);
@@ -54,27 +56,29 @@ public class UpdateUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String loginId = request.getParameter("loginId");
 		String name = request.getParameter("name");
 		String birthDate = request.getParameter("birthDate");
 		String password = request.getParameter("password");
 		String rePassword = request.getParameter("rePassword");
 		int result = -1;
+		UserDao userDao = new UserDao();
 
-		if(name.length() != 0 && birthDate.length() != 0) {
-			if(password.equals(rePassword) && password.length() != 0) {
-				//パスワード以外の更新メソッド
-			}else {
-				result = -1;
-			}
+		if(name.length() != 0 && birthDate.length() != 0 && password.equals(rePassword)) {
+			result = userDao.updateUser(loginId, name, birthDate, password);
 		}
 
 		if(result < 0) {
-			request.setAttribute("user", request.getAttribute("user"));
+			request.setAttribute("loginId", loginId);
+			request.setAttribute("name", name);
+			request.setAttribute("birthDate", birthDate);
 			request.setAttribute("errMsg", "入力された内容が正しくありません");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/updateUser.jsp");
 			dispatcher.forward(request, response);
 		}
+
+		response.sendRedirect("UserListServlet");
 	}
 
 }

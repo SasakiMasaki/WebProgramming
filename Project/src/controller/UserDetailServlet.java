@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,16 +14,16 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class UserListServlet
+ * Servlet implementation class UserDetailServlet
  */
-@WebServlet("/UserListServlet")
-public class UserListServlet extends HttpServlet {
+@WebServlet("/UserDetailServlet")
+public class UserDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserListServlet() {
+    public UserDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +32,20 @@ public class UserListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session =  request.getSession();
-		User user = (User)session.getAttribute("loginUser");
+		User loginUser = (User)session.getAttribute("loginUser");
+		User user = null;
+		UserDao userDao = new UserDao();
 
-		if(user == null) {
+		if(loginUser == null) {
 			response.sendRedirect("LoginServlet");
 			return;
 		}
+		user = userDao.findListByLoginId(request.getParameter("loginId"));
+		request.setAttribute("user", user);
 
-		UserDao userDao = new UserDao();
-		List<User> userList = userDao.findAll();
-
-		request.setAttribute("userList", userList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userDetail.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -54,22 +53,8 @@ public class UserListServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
-		String loginId = request.getParameter("loginId");
-		String name = request.getParameter("name");
-		String firstDate = request.getParameter("firstDate");
-		String lastDate = request.getParameter("lastDate");
-		List<User> userList = new ArrayList<User>();
-		UserDao userDao = new UserDao();
-
-		userList = userDao.serchUser(loginId, name, firstDate, lastDate);
-
-		if(userList != null) {
-			request.setAttribute("userList", userList);
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
-		dispatcher.forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

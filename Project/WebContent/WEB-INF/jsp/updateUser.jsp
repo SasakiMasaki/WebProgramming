@@ -16,7 +16,7 @@
 				<div>${loginUser.name}さん&emsp;<a href="LogoutServlet">ログアウト</a></div>
 			</header>
 			<div class="title">
-				<p class="text-center"><a>ユーザ情報更新</a></p>
+				<p class="text-center">ユーザ情報更新</p>
 			</div>
 			<c:if test="${errMsg != null}">
 				<div class="alert">
@@ -26,26 +26,29 @@
 
 			<table class="b">
 				<tr>
-					<th><a>ログインID</a></th>
-					<td><a name="loginId">${user.loginId}</a></td>
+					<th>ログインID</th>
+					<td>
+						<input type="hidden" name="loginId" value="${loginId}">
+						${loginId}
+					</td>
 				<tr>
-					<th><a>パスワード</a></th>
+					<th>パスワード</th>
 					<td><input type = "password" name = "password"></td>
 				</tr>
 				<tr>
-					<th><a>パスワード(確認)</a></th>
+					<th>パスワード(確認)</th>
 					<td><input type = "password" name = "rePassword"></td>
 				<tr>
-					<th><a>ユーザ名</a></th>
-					<td><input type = "text" name = "name" value="${user.name}"></td>
+					<th>ユーザ名</th>
+					<td><input type = "text" name = "name" value="${name}"></td>
 				<tr>
 					<th><a>生年月日</a></th>
-					<td><input type = "date" name = "birthDate" value="${user.birthDate}"></td>
+					<td><input type = "date" name = "birthDate" value="${birthDate}"></td>
 			</table>
 			<div class="text-center">
 				<br>
 				<br>
-				<input class="submit" type="submit" name="update" value="更新"><br>
+				<input class="submit" type="submit" value="更新"><br>
 				<br>
 			</div>
 			<p class="text-left"><a href = "UserListServlet">戻る</a></p>
